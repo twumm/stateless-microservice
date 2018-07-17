@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const { body, validationResult } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
+require('dotenv').load()
 
 exports.user_login_post = [
   // Validate input fields. Trim spaces around username
@@ -13,17 +14,21 @@ exports.user_login_post = [
   (req, res, next) => {
     // Save errors from validation, if any.
     const errors = validationResult(req);
-    // Save username and password. 
-    // Convert username to lowercase for db consistency
-    const username = req.body.username.toLowerCase()
-    const password = req.body.password
-    // Create a token for the user.
-    const token = jwt.sign({username: username}, process.env.jwtSecret, 
-                  {expiresIn: 21600 })
+    
+    // Check if there were errors from the form.
+    if (!errors.isEmpty()) {
+      res.send({error: 'Username or password error. Please try again'})
+    }
+    else {
+      // Save username and password. 
+      // Convert username to lowercase for db consistency
+      const username = req.body.username.toLowerCase()
+      const password = req.body.password
+      // Create a token for the user.
+      const token = jwt.sign({username: username}, process.env.jwtSecret, 
+                    {expiresIn: 21600 }
+      )
+      res.status(200).send({user: username, authorized: true, token: token})
+    }
   }
 ]
-
-
-// (req, res, next) => {
-//   res.send('User logged in')
-// }
