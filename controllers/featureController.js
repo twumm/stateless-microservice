@@ -16,8 +16,17 @@ exports.create_thumbnail_post = (req, res, next) => {
       url: imageUrl,
       dest: './public/images/original/'
     }
+    // Set location for resized images to be saved.
     const resizeFolder = './public/images/resized/'
-    
+    // Download image from the url and save in selected destination in options.
+    download.image(options)
+      .then(({filename, image}) => {
+        
+        
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
   else {
     res.send({error: 'We only handle image files.'})
