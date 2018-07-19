@@ -1,12 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const feature_controller = require('../controllers/featureController')
+const express = require('express')
+const featureController = require('../controllers/featureController')
 const { verifyToken } = require('../middleware/customMiddleware')
 
+const router = express.Router()
+
+
 // Route to create image thumbnail.
-router.post('/create-thumbnail', verifyToken, feature_controller.create_thumbnail_post)
+router.post('/create-thumbnail', verifyToken, featureController.create_thumbnail_post)
 
 // Route to patch json objects.
-router.patch('/patch-object', verifyToken, feature_controller.patch_json_patch)
+router.patch('/patch-object', verifyToken, featureController.patch_json_patch)
 
-module.exports = router;
+module.exports = router
