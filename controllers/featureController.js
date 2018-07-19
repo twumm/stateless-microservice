@@ -66,7 +66,8 @@ exports.patch_json_patch = [
      
       // Save patch in new variable.
       let patchedObject = jsonpatch.applyPatch(jsonObject, jsonPatchObject).newDocument
-      res.json({user: req.user.username, patchedObject: patchedObject})
+      // res.json({user: req.user.username, patchedObject: patchedObject})
+      res.json({ patchedObject: patchedObject})
     }
   }
 ]
