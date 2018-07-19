@@ -31,10 +31,10 @@ The app gets up and running on port 3000.
 
 Since this is mostly an API with post and patch requests, testing will be done with [Postman](https://www.getpostman.com/)
 
-* Authentication
+### Authentication
 This is a mock authentication so you can pass in any username or password to login.
- 1. Set the request to **POST** and the url to **http://localhost:3000/api/users/login**. 
- 2. In the **Body** for the Postman request, select **x-www-form-urlencoded**
+ 1. Set the request to **POST** and the url to _http://localhost:3000/api/users/login_. 
+ 2. In the **Body** for the Postman request, select **x-www-form-urlencoded**.
  3. You will be setting 2 keys (for username and password). Set the ```username``` key to any name. Set ```password``` to any password (minimum of 6 characters).
  4. Hit ```Send```. You will get a result in this format:
  ```
@@ -45,4 +45,41 @@ This is a mock authentication so you can pass in any username or password to log
 }
  ```
 
- 
+ ### JSON patching
+Apply json patch to a json object, and return the resulting json object.
+ 1. Set the request to **PATCH** and the url to _http://localhost:3000/api/patch-object_.
+ 2. Set the key ```jsonObject``` to an object you would like to patch. Set the key ```jsonPatchObject``` to the object you want to use to patch the ```jsonObject```.
+ ```
+ Examples:
+ jsonObject
+ { "user": { "firstName": "Albert", "lastName": "Einstein" } }
+
+ jsonPatchObject
+ [{"op": "replace", "path": "/user/firstName", "value": "Leonardo"}, {"op": "replace", "path": "/user/lastName", "value": "da Vinci"}]
+ ```
+ 3. Since this is a secure route, for testing, you will have to set the token in the ```Header```. Set key as ```token``` and value as token you received from **Authentication**.
+ 4. Expected result should be:
+ ```
+ { "user": { "firstName": "Leonardo", "lastName": "da Vinci" } }
+ ```
+
+ ### Image Thumbnail Generation
+This request contains a public image URL. It downloads the image, resizes to 50x50 pixels, and returns the resulting thumbnail.
+ 1. Set the request to **POST** and the url to _http://localhost:3000/api/create-thumbnail_.
+ 2. Set the key ```imageUrl``` to a public image url.
+ 3. Since this is a secure route, for testing, you will have to set the token in the ```Header```. Set key as ```token``` and value as token you received from **Authentication**.
+ 4. Image will be downloaded and converted to a thumbnail of size 50x50 pixels with a sample result as below:
+ ```
+ {
+    "converted": true,
+    "user": "moi",
+    "success": "Image has been resized",
+    "thumbnail": "./public/images/resized/"
+}
+```
+
+## Unit Testing
+
+Unit testing is done using mochai.
+
+Run ```npm test``` from the application's root directory.
