@@ -32,7 +32,7 @@ exports.create_thumbnail_post = (req, res, next) => {
           .resize(50, 50)
           .toFile(`${resizeFolder}output.${imageUrlExt}`, err => {
             if (err) {return next(err)}
-            res.json({converted: true, success: 'Image has been resized', thumbnail: resizeFolder})
+            res.json({converted: true, user: req.user.username, success: 'Image has been resized', thumbnail: resizeFolder})
         })
       })
       .catch(err => {
@@ -66,7 +66,7 @@ exports.patch_json_patch = [
      
       // Save patch in new variable.
       let patchedObject = jsonpatch.applyPatch(jsonObject, jsonPatchObject).newDocument
-      res.json({patchedObject: patchedObject})
+      res.json({user: req.user.username, patchedObject: patchedObject})
     }
   }
 ]
