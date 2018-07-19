@@ -61,8 +61,6 @@ describe('HackerBay Stateless Microservice', () => {
         .send({jsonObject, jsonPatchObject})
         .end((err, res) => {
           expect(res.statusCode).to.equal(200)
-          // expect(res.body.converted).to.equal(true)
-          
           done()
         })
     })
