@@ -34,7 +34,6 @@ describe('HackerBay Stateless Microservice', () => {
           expect(res.statusCode).to.equal(200)
           expect(res.body.authorized).to.equal(true)
           token = res.body.token
-          // console.log(res)
           done()
         })
     })
@@ -45,7 +44,6 @@ describe('HackerBay Stateless Microservice', () => {
       request.agent(app)
         .post('/api/create-thumbnail')
         .set('token', token)
-        // console.log(token)
         .send({imageUrl: imageUrl})
         .end((err, res) => {
           expect(res.statusCode).to.equal(200)
@@ -62,7 +60,6 @@ describe('HackerBay Stateless Microservice', () => {
         .set('token', token)
         .send({jsonObject, jsonPatchObject})
         .end((err, res) => {
-          // console.log(res)
           expect(res.statusCode).to.equal(200)
           // expect(res.body.converted).to.equal(true)
           
