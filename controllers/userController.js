@@ -17,7 +17,7 @@ exports.user_login_post = [
     
     // Check if there were errors from the form.
     if (!errors.isEmpty()) {
-      res.send({error: 'Username or password error. Please try again'})
+      res.status(400).send({errors: errors.array()})
     }
     else {
       // Save username and password. 
@@ -28,6 +28,8 @@ exports.user_login_post = [
       const token = jwt.sign({username: username}, process.env.jwtSecret, 
                     {expiresIn: 21600 }
       )
+      // Set token in header
+      req.headers['token'] = token
       res.status(200).send({user: username, authorized: true, token: token})
     }
   }
