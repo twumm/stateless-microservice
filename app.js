@@ -32,6 +32,7 @@ app.use('/api/users', users)
 app.use((req, res, next) => {
   const err = new Error('Not Found')
   err.status = 404
+  res.status(404).send({ error: 'Page does not exist' })
   next(err)
 })
 
