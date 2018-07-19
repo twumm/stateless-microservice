@@ -9,16 +9,16 @@ exports.fileExtension = (url) => {
 
 // Verify token
 exports.verifyToken = (req, res, next) => {
-  let token = req.headers['x-access-token'] || req.body.token
-
+  let token = req.headers.token
   // Return forbidden status if the token is not available
   if (!token) { 
-    return res.status(403).send({authorized: false, error: 'Token does not exist.'})
+    return res.status(403).json({authorized: false, error: 'Token does not exist.'})
   }
-
+  // Verify token
   jwt.verify(token, process.env.jwtSecret, (err, decoded) => {
     if (err) { return res.status(500).send({authorized: false, error: 'Verification failed.'})}
-    // No error so go to next process.
+    // No error so save decoded token into req.user and go to next process.
+    req.user = decoded
     next();
-  })  
+  })
 }
