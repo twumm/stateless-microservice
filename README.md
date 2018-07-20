@@ -6,6 +6,7 @@ A simple stateless microservice in Nodejs, with three major functionalities -
  * JSON patching
  * Image Thumbnail Generation
 
+
 ## Setup
 
 The API requires [Node.js](https://nodejs.org/en/download/)
@@ -50,6 +51,7 @@ This is a mock authentication so you can pass in any username or password to log
 }
  ```
 
+
  ### JSON patching
 Apply json patch to a json object, and return the resulting json object.
  1. Set the request to **PATCH** and the url to _/api/patch-object_.
@@ -68,6 +70,7 @@ Apply json patch to a json object, and return the resulting json object.
  { "user": { "firstName": "Leonardo", "lastName": "da Vinci" } }
  ```
 
+
  ### Image Thumbnail Generation
 This request contains a public image URL. It downloads the image, resizes to 50x50 pixels, and returns the resulting thumbnail.
  1. Set the request to **POST** and the url to _/api/create-thumbnail_.
@@ -83,11 +86,17 @@ This request contains a public image URL. It downloads the image, resizes to 50x
 }
 ```
 
+
 ## Unit Testing
 
 Unit testing is done using mochai.
 
 Run ```npm test``` from the application's root directory.
+
+## Logging
+
+All logs are saved in ```hackerbay.log``` in the application's root.
+
 
 ## Built With
 
@@ -95,3 +104,9 @@ Run ```npm test``` from the application's root directory.
  * [Express](https://expressjs.com/)
  * [Mocha](https://mochajs.org/) - For testing
 
+
+## Known Issues
+
+ 1. Test for thumbnail generation with [Mocha](https://mochajs.org/) _'it should accept a public image url and return a resized image'_ returns a promise which is currently not being handled properly.
+ 2. _Dockerfile_ has not been fully tested.
+ 3. _Istanbul_ coverage not working as expected.
