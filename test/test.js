@@ -1,25 +1,25 @@
-let expect = require('chai').expect
-let app = require('../app')
-let request = require('supertest')
+const { expect } = require('chai')
+const request = require('supertest')
 
+const app = require('../app')
 
 
 describe('HackerBay Stateless Microservice', () => {
   // Create dummy login data
-  let loginDetails = {'username': 'someone', 'password': 'awesome'}
+  const loginDetails = { username: 'someone', password: 'awesome' }
   // Create token variable to save user token
   let token
   // Set various variables to be used in the application
-  let imageUrl = 'https://s3.amazonaws.com/oxfamamericaunwrapped.com/wp-content/uploads/2013/07/OAU10-53_pair_of_goats_2014-updated-image-400x400.jpg'
-  let jsonObject = '{ "user": { "firstName": "Albert", "lastName": "Einstein" } }'
-  let jsonPatchObject = '[{"op": "replace", "path": "/user/firstName", "value": "Leonado"}, {"op": "replace", "path": "/user/lastName", "value": "Da Vinci"}]'
-  
+  const imageUrl = 'https://s3.amazonaws.com/oxfamamericaunwrapped.com/wp-content/uploads/2013/07/OAU10-53_pair_of_goats_2014-updated-image-400x400.jpg'
+  const jsonObject = '{ "user": { "firstName": "Albert", "lastName": "Einstein" } }'
+  const jsonPatchObject = '[{"op": "replace", "path": "/user/firstName", "value": "Leonado"}, {"op": "replace", "path": "/user/lastName", "value": "Da Vinci"}]'
+
   // Mock user authentication
   describe('Mock Authentication', () => {
     it('it should not log user in if username and password do not meet requirements', (done) => {
       request.agent(app)
         .post('/api/users/login')
-        .send({username: 'someone', password: ''})
+        .send({ username: 'someone', password: '' })
         .end((err, res) => {
           expect(res.statusCode).to.equal(400)
           done()
@@ -49,7 +49,7 @@ describe('HackerBay Stateless Microservice', () => {
           expect(res.statusCode).to.equal(200)
           expect(res.body.converted).to.equal(true)
         })
-        done()
+      done()
     })
   })
 
@@ -58,7 +58,7 @@ describe('HackerBay Stateless Microservice', () => {
       request.agent(app)
         .patch('/api/patch-object')
         .set('token', token)
-        .send({jsonObject, jsonPatchObject})
+        .send({ jsonObject, jsonPatchObject })
         .end((err, res) => {
           expect(res.statusCode).to.equal(200)
           done()
