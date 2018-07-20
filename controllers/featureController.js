@@ -41,7 +41,7 @@ exports.create_thumbnail_post = (req, res, next) => {
         res.status(400).json({ error: 'Oops something went wrong. Kindly check your image url and try again' })
       })
   } else {
-    res.json({ error: `We only handle image files with extensions - ${[...imageTypes]}` })
+    res.status(400).json({ error: `We only handle image files with extensions - ${[...imageTypes]}` })
   }
 }
 
