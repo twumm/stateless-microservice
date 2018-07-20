@@ -27,7 +27,7 @@ npm install
 
 The app gets up and running on port 3000 with ```npm start```.
 
-Create a ```.env``` file and set ```jwtSecret``` to any secret phrase you want.
+**Important** Create a ```.env``` file and set ```jwtSecret``` to any secret phrase you want.
 
 ## Testing the API routes.
 
@@ -85,3 +85,10 @@ This request contains a public image URL. It downloads the image, resizes to 50x
 Unit testing is done using mochai.
 
 Run ```npm test``` from the application's root directory.
+
+## Built With
+
+ * [Node.js](https://nodejs.org)
+ * [Express](https://expressjs.com/)
+ * [Mocha](https://mochajs.org/) - For testing
+
