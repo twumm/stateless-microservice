@@ -59,7 +59,7 @@ describe('HackerBay Stateless Microservice', () => {
         .set('token', 'randomewwrongtoken')
         .send({ imageUrl: imageUrl })
         .end((err, res) => {
-          expect(res.statusCode).to.equal(500)
+          expect(res.statusCode).to.equal(401)
           expect(res.body.authorized).to.equal(false)
         })
       done()
@@ -95,7 +95,7 @@ describe('HackerBay Stateless Microservice', () => {
         .set('token', 'randomewwrongtoken')
         .send({ jsonObject, jsonPatchObject })
         .end((err, res) => {
-          expect(res.statusCode).to.equal(500)
+          expect(res.statusCode).to.equal(401)
           expect(res.body.authorized).to.equal(false)
         })
       done()
