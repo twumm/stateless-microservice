@@ -14,7 +14,7 @@ exports.verifyToken = (req, res, next) => {
   }
   // Verify token
   jwt.verify(token, process.env.jwtSecret, (err, decoded) => {
-    if (err) { return res.status(500).send({ authorized: false, error: 'Verification failed or token has expired.' }) }
+    if (err) { return res.status(401).send({ authorized: false, error: 'Verification failed or token has expired.' }) }
     // No error so save decoded token into req.user and go to next process.
     req.user = decoded
     next()
